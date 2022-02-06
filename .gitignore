@@ -6,4 +6,4 @@ node_modules
 .env
 
 # Built ts files
-dist/**/*
+dist

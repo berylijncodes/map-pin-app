@@ -10,11 +10,11 @@ dotenv_1.default.config();
 const PORT = process.env.PORT || 3000;
 // const MONGODB_URI = process.env.MONGODB_URI
 const app = (0, express_1.default)();
-mongoose_1.default.connect(`${process.env.MONGODB_URI}`)
+mongoose_1.default.connect(process.env.MONGODB_URI)
     .then(() => {
     // Start Express server
-    app.listen(app.get('/'), () => {
-        console.log(`Application is running at htto://localhost:${PORT}`);
+    app.listen(PORT, () => {
+        console.log(`Application is running at http://localhost:${PORT}`);
         console.log(`Press CTRL-C to stop\n`);
     });
     console.log("App is working");
@@ -23,7 +23,5 @@ mongoose_1.default.connect(`${process.env.MONGODB_URI}`)
     console.log('MongoDB connection error. Please make sure MongoDB is running. ' + err);
     process.exit(1);
 });
-// mongoose.connect(`${process.env.MONGO_URI}`, () => {
-//     console.log('connected to mongodb')
-// })
+console.log("process", process.env.MONGODB_URI);
 //# sourceMappingURL=index.js.map

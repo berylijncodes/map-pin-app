@@ -1,4 +1,4 @@
-import express, { Request, response, Response } from 'express'
+import express, { Request, Response } from 'express'
 import Pin from '../models/Pin'
 
 const router = express.Router()
@@ -28,7 +28,7 @@ router.get('/', async (req: Request, res: Response) => {
         const pins = await Pin.find()
         res.status(200).json(pins)
     } catch (error) {
-        response.status(500).json(error)
+        res.status(500).json(error)
     }
 })
 

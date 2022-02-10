@@ -4,7 +4,7 @@ import mongoose, { Document } from 'mongoose'
 export type UserDocument = Document & {
     userName: string
     email: string
-    password: string | number
+    password: string
 
 }
 

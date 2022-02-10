@@ -36,11 +36,15 @@ router.post('/login', async (req: Request, res: Response) => {
         const { userName } = req.body
 
         const user = await User.findOne({ userName })
-        !user && res.status(400).json('Username or password incorrect!')
-
+        if (!user) {
+            res.status(400).json('Username or password incorrect!')
+            return
+        }
 
         // Validate password
         const ValidPassword = await bcrypt.compare(req.body.password, user.password)
+        console.log('Valid', ValidPassword)
+        res.status(200).json({ _id: user._id, userName: userName })
     } catch (error) {
         res.status(500).json(error)
     }

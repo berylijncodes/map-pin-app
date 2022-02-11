@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import GlobalStyle from './styles/global';
+import Map from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <GlobalStyle />
+      <Map
+        mapboxAccessToken={process.env.REACT_APP_MAPBOX_API}
+        initialViewState={{
+          longitude: -122.4,
+          latitude: 37.8,
+          zoom: 14,
+        }}
+        style={{ width: 600, height: 400 }}
+        mapStyle="mapbox://styles/mapbox/streets-v9"
+      />
+      console.log(mapboxAccessToken);
     </div>
   );
 }

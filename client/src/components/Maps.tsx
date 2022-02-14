@@ -1,30 +1,28 @@
-// import React, { useState } from 'react';
-// import ReactMapGL from 'react-map-gl';
-
-// function Map() {
-//   const [viewport, setViewport] = useState({
-//     width: 100,
-//     height: 100,
-//     latitude: 37.75,
-//     longitude: -122.43,
-//     zoom: 8,
-//   });
-//   return (
-//     <ReactMapGL
-//       {...viewport}
-//       onViewportChange={(nextViewport: void) => setViewport(nextViewport)}
-//     />
-//   );
-// }
-
-// export default Map;
-
+import { useState, useEffect } from 'react';
 import React from 'react';
 import Map from 'react-map-gl';
 import Markers from './Markers';
 import PopUp from './PopUp';
+import axios, { AxiosResponse } from 'axios';
+
+type Pin = {
+  lat: number;
+  long: number;
+}[];
 
 function Maps() {
+  const [pins, setPins] = useState<Pin>([]);
+  useEffect(() => {
+    const getPins = async () => {
+      try {
+        const res = await axios.get<Pin>('/pins');
+        setPins(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getPins();
+  }, []);
   return (
     <div>
       <Map
@@ -37,12 +35,19 @@ function Maps() {
         style={{
           width: '100vw',
           height: '100vh',
-          fontSize: 'initialViewState.zoom * 5',
+          fontSize: 'initialViewState.zoom * 5 ',
         }}
         mapStyle="mapbox://styles/mapbox/streets-v9"
       >
-        <Markers />
-        <PopUp />
+        {pins.map((p) => {
+          return (
+            <>
+              <Markers longitude={5.216} latitude={52.193} />
+              <Markers longitude={p.long} latitude={p.lat} />
+              <PopUp />
+            </>
+          );
+        })}
       </Map>
     </div>
   );

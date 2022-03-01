@@ -1,17 +1,24 @@
-import { useState, useEffect } from 'react';
 import React from 'react';
-import Map from 'react-map-gl';
+import { useState, useEffect } from 'react';
 import Markers from './Markers';
-import PopUp from './PopUp';
-import axios, { AxiosResponse } from 'axios';
+
+import axios from 'axios';
+
+import Map from 'react-map-gl';
 
 type Pin = {
   lat: number;
   long: number;
+  title: string;
+  desc: string;
+  userName: string;
+  createdAt: string;
+  _id: object;
 }[];
 
 function Maps() {
   const [pins, setPins] = useState<Pin>([]);
+
   useEffect(() => {
     const getPins = async () => {
       try {
@@ -23,13 +30,14 @@ function Maps() {
     };
     getPins();
   }, []);
+
   return (
     <div>
       <Map
         mapboxAccessToken={process.env.REACT_APP_MAPBOX_API}
         initialViewState={{
-          longitude: 15,
-          latitude: 60,
+          longitude: 17,
+          latitude: 46,
           zoom: 3.5,
         }}
         style={{
@@ -40,11 +48,21 @@ function Maps() {
         mapStyle="mapbox://styles/mapbox/streets-v9"
       >
         {pins.map((p) => {
+          console.log(p);
+          console.log('p', p._id);
+
           return (
             <>
-              <Markers longitude={5.216} latitude={52.193} />
-              <Markers longitude={p.long} latitude={p.lat} />
-              <PopUp />
+              <Markers
+                longitude={p.long}
+                latitude={p.lat}
+                userName={p.userName}
+                _id={p._id}
+                key={p.userName}
+                title={p.title}
+                desc={p.desc}
+                createdAt={p.createdAt}
+              />
             </>
           );
         })}

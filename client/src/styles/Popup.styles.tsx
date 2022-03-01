@@ -2,10 +2,12 @@ import styled from 'styled-components';
 
 export const StyledPopup = styled.div`
   width: 300px;
-  height: 25 0px;
+  height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 0 1em;
+  margin: 1em 0;
 
   label {
     border-bottom: 2px solid #5543ca;

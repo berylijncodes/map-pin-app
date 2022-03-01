@@ -20,9 +20,10 @@
     "mapbox-gl": "^2.7.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-map-gl": "^7.0.6",
+    "react-map-gl": "^7.0.7",
     "react-scripts": "5.0.0",
     "styled-components": "^5.3.3",
+    "timeago.js": "^4.0.2",
     "typescript": "^4.5.5",
     "web-vitals": "^2.1.4"
   },
@@ -52,9 +53,10 @@
   },
   "devDependencies": {
     "@mui/types": "^7.1.1",
-    "@types/react-map-gl": "^6.1.1",
     "@types/jest": "^27.4.0",
-    "@types/styled-components": "^5.1.22"
+    "@types/react-map-gl": "^6.1.2",
+    "@types/styled-components": "^5.1.22",
+    "@types/timeago": "^1.6.0"
   },
   "proxy": "http://localhost:4000/api"
 }

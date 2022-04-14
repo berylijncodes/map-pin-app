@@ -2,7 +2,7 @@ import { Marker } from 'react-map-gl';
 import { useState } from 'react';
 import PopUp from './PopUp';
 
-import RoomOutlinedIcon from '@mui/icons-material/RoomOutlined';
+import RoomIcon from '@mui/icons-material/Room';
 // import { Viewport } from 'viewport-mercator-project';
 
 function Markers({
@@ -22,23 +22,27 @@ function Markers({
   userName: string;
   createdAt: string;
 }) {
-  const [showPopup, setShowPopup] = useState(false);
+  const [showOnePopup, setShowOnePopup] = useState(false);
+
+  const currentUser = 'Barnie';
 
   const handleClickPopup = () => {
-    setShowPopup(!showPopup);
+    setShowOnePopup(!showOnePopup);
   };
 
   return (
     <>
-      <Marker
-        longitude={longitude}
-        latitude={latitude}
-        anchor="bottom"
-        onClick={() => handleClickPopup()}
-      >
-        <RoomOutlinedIcon style={{ color: '#0477bf', fontSize: 40 }} />
+      <Marker longitude={longitude} latitude={latitude} anchor="bottom">
+        <RoomIcon
+          style={{
+            color: userName === currentUser ? '#d96704' : '#0477bf',
+            fontSize: 40,
+            cursor: 'pointer',
+          }}
+          onClick={() => handleClickPopup()}
+        />
       </Marker>
-      {showPopup && (
+      {showOnePopup && (
         <PopUp
           longitude={longitude}
           latitude={latitude}

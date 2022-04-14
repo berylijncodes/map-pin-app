@@ -3,8 +3,11 @@ import { useState, useEffect } from 'react';
 import Markers from './Markers';
 
 import axios from 'axios';
+import PopUp from './PopUp';
 
-import Map from 'react-map-gl';
+import Map, { MapLayerMouseEvent } from 'react-map-gl';
+// import map from 'react-map-gl/dist/esm/components/map';
+// import { Popup } from 'react-map-gl';
 
 type Pin = {
   lat: number;
@@ -15,9 +18,36 @@ type Pin = {
   createdAt: string;
   _id: object;
 }[];
+type Place = {
+  lat: number;
+  lng: number;
+};
 
 function Maps() {
   const [pins, setPins] = useState<Pin>([]);
+  const [newPlace, setNewPlace] = useState<Place>();
+  const [settings, setsettings] = useState({
+    dragPan: false,
+    dragRotate: false,
+    scrollZoom: false,
+    touchZoom: false,
+    touchRotate: false,
+    keyboard: false,
+    doubleClickZoom: false,
+  });
+  //  const [showPopup, setShowPopup] = useState(true);
+
+  const handleAddClick = (e: MapLayerMouseEvent) => {
+    console.log('e', e);
+    const { lng, lat } = e.lngLat;
+    console.log('e', e);
+    // const { _clickZoom } = e.target.doubleClickZoom.disable;
+    setNewPlace({
+      lng,
+      lat,
+    });
+    setsettings({ ...settings });
+  };
 
   useEffect(() => {
     const getPins = async () => {
@@ -43,13 +73,15 @@ function Maps() {
         style={{
           width: '100vw',
           height: '100vh',
-          fontSize: 'initialViewState.zoom * 5 ',
+          // fontSize: 'initialViewState.zoom * 5 ',
         }}
         mapStyle="mapbox://styles/mapbox/streets-v9"
+        onDblClick={handleAddClick}
+        {...settings}
       >
         {pins.map((p) => {
-          console.log(p);
-          console.log('p', p._id);
+          //console.log(p);
+          //console.log('p', p._id);
 
           return (
             <>
@@ -66,6 +98,24 @@ function Maps() {
             </>
           );
         })}
+        {/* {newPlace && (
+          <Popup
+            longitude={newPlace.lng}
+            latitude={newPlace.lat}
+            anchor="left"
+            // onClose={() => setShowPopup(false)}
+          ></Popup>
+        )} */}
+        {newPlace && (
+          <PopUp
+            longitude={newPlace.lng}
+            latitude={newPlace.lat}
+            title={''}
+            desc={''}
+            userName={''}
+            createdAt={''}
+          />
+        )}
       </Map>
     </div>
   );

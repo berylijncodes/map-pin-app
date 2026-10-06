@@ -4,7 +4,10 @@ A map app where users can pin their favourite places and experiences and share t
 
 🚧 **Work in progress.** The map, pin display and API are working. I'm currently adding the add-pin form, login in the UI and a redesign.
 
-<!-- Add a screenshot: ![Map Pin App](./docs/screenshot.png) -->
+![Map Pin App](./docs/screenshot.png)
+
+//TODO
+
 <!-- Add the live link here once deployed -->
 
 ## What works today
@@ -56,9 +59,9 @@ The app opens on http://localhost:3000 and sends API requests to the server thro
 
 ## API
 
-| Method | Route | Description |
-|--------|-------|-------------|
-| GET | `/api/pins` | List all pins |
-| POST | `/api/pins` | Create a pin (`userName`, `title`, `desc`, `rating`, `lat`, `long`) |
-| POST | `/api/users/register` | Register a user |
-| POST | `/api/users/login` | Log in |
+| Method | Route                 | Description                                                         |
+| ------ | --------------------- | ------------------------------------------------------------------- |
+| GET    | `/api/pins`           | List all pins                                                       |
+| POST   | `/api/pins`           | Create a pin (`userName`, `title`, `desc`, `rating`, `lat`, `long`) |
+| POST   | `/api/users/register` | Register a user                                                     |
+| POST   | `/api/users/login`    | Log in                                                              |

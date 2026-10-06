@@ -1,11 +1,11 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
-import Markers from './Markers';
+import React from "react";
+import { useState, useEffect } from "react";
+import Markers from "./Markers";
 
-import axios from 'axios';
-import PopUp from './PopUp';
+import axios from "axios";
+import PopUp from "./PopUp";
 
-import Map, { MapLayerMouseEvent } from 'react-map-gl';
+import Map, { MapLayerMouseEvent } from "react-map-gl";
 // import map from 'react-map-gl/dist/esm/components/map';
 // import { Popup } from 'react-map-gl';
 
@@ -16,7 +16,7 @@ type Pin = {
   desc: string;
   userName: string;
   createdAt: string;
-  _id: object;
+  _id: string;
 }[];
 type Place = {
   lat: number;
@@ -38,9 +38,9 @@ function Maps() {
   //  const [showPopup, setShowPopup] = useState(true);
 
   const handleAddClick = (e: MapLayerMouseEvent) => {
-    console.log('e', e);
+    console.log("e", e);
     const { lng, lat } = e.lngLat;
-    console.log('e', e);
+    console.log("e", e);
     // const { _clickZoom } = e.target.doubleClickZoom.disable;
     setNewPlace({
       lng,
@@ -52,7 +52,7 @@ function Maps() {
   useEffect(() => {
     const getPins = async () => {
       try {
-        const res = await axios.get<Pin>('/pins');
+        const res = await axios.get<Pin>("/pins");
         setPins(res.data);
       } catch (error) {
         console.log(error);
@@ -66,13 +66,13 @@ function Maps() {
       <Map
         mapboxAccessToken={process.env.REACT_APP_MAPBOX_API}
         initialViewState={{
-          longitude: 17,
-          latitude: 46,
-          zoom: 3.5,
+          longitude: 5.5,
+          latitude: 52,
+          zoom: 6.5,
         }}
         style={{
-          width: '100vw',
-          height: '100vh',
+          width: "100vw",
+          height: "100vh",
           // fontSize: 'initialViewState.zoom * 5 ',
         }}
         mapStyle="mapbox://styles/mapbox/streets-v9"
@@ -80,22 +80,17 @@ function Maps() {
         {...settings}
       >
         {pins.map((p) => {
-          //console.log(p);
-          //console.log('p', p._id);
-
           return (
-            <>
-              <Markers
-                longitude={p.long}
-                latitude={p.lat}
-                userName={p.userName}
-                _id={p._id}
-                key={p.userName}
-                title={p.title}
-                desc={p.desc}
-                createdAt={p.createdAt}
-              />
-            </>
+            <Markers
+              longitude={p.long}
+              latitude={p.lat}
+              userName={p.userName}
+              _id={p._id}
+              key={p._id}
+              title={p.title}
+              desc={p.desc}
+              createdAt={p.createdAt}
+            />
           );
         })}
         {/* {newPlace && (
@@ -110,10 +105,10 @@ function Maps() {
           <PopUp
             longitude={newPlace.lng}
             latitude={newPlace.lat}
-            title={''}
-            desc={''}
-            userName={''}
-            createdAt={''}
+            title={""}
+            desc={""}
+            userName={""}
+            createdAt={""}
           />
         )}
       </Map>
